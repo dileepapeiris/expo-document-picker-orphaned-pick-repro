@@ -70,3 +70,31 @@ ever fires, the promise never settles, and `pickingContext` stays set until the 
 The reporter proposes keeping a weak reference to the presented picker in the context and, on the
 next call, treating a context whose picker is no longer presented as stale: resolve the old
 promise as canceled and continue instead of throwing.
+
+## Workaround
+
+Do not call `getDocumentAsync()` in the same tick as closing a modal. Wait for the modal to
+report that it is gone, which is what the switch turns on:
+
+```tsx
+const pendingPick = useRef<string | null>(null);
+
+const closeSheetAndPick = () => {
+  setSheetVisible(false);
+  pendingPick.current = 'pick 1';
+};
+
+<Modal
+  visible={sheetVisible}
+  presentationStyle="pageSheet"
+  onDismiss={() => {
+    if (pendingPick.current) {
+      pendingPick.current = null;
+      pick('pick 1');
+    }
+  }}
+/>
+```
+
+`onDismiss` is iOS-only, which is fine here because the stuck state is iOS-only in this
+reproduction. The app must be relaunched to recover once a pick has already been orphaned.
