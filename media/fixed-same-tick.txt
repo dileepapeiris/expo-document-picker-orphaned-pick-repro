@@ -1,0 +1,14 @@
+10:34:27 run: fixed-same-tick | iPhone 17 Pro simulator, iOS 26.5 | expo-document-picker 58.0.5 with the fix from this PR applied to node_modules | workaround switch off | fresh launch | taps are device points (402x874)
+10:34:30 recording started -> fixed-same-tick.mp4
+10:34:32 screenshot fixed-same-tick-0-start.png
+10:34:32 tap (201,173) '1. Open sheet' (attempt 1)
+10:34:34 screenshot fixed-same-tick-2-open-sheet.png
+10:34:35 tap (201,195) '2. Attach a file' (setSheetVisible(false) + getDocumentAsync)
+10:34:40 screenshot fixed-same-tick-3-attach-a-file.png (5 s after the tap)
+10:34:40 tap (309,110) picker close (X), if a picker is showing
+10:34:43 screenshot fixed-same-tick-4-after-close.png
+10:34:44 tap (201,222) '3. Pick again'
+10:34:48 screenshot fixed-same-tick-5-pick-again.png (4 s after the tap)
+10:34:48 tap (309,110) picker close (X), if a picker is showing
+10:34:51 screenshot fixed-same-tick-6-final.png
+10:34:55 recording stopped
