@@ -10,8 +10,12 @@ export default function App() {
 
   const pick = async (label: string) => {
     append(`${label}: calling getDocumentAsync`);
-    const result = await DocumentPicker.getDocumentAsync();
-    append(`${label}: settled, canceled=${result.canceled}`);
+    try {
+      const result = await DocumentPicker.getDocumentAsync();
+      append(`${label}: settled, canceled=${result.canceled}`);
+    } catch (error) {
+      append(`${label}: rejected, ${String(error)}`);
+    }
   };
 
   return (
