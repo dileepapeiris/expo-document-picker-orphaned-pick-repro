@@ -93,3 +93,31 @@ The fix keeps a weak reference to the presented picker in `PickingContext`. When
 context whose picker is no longer presented, it resolves that promise with `canceled: true` and
 starts the new pick instead of throwing. A call made while a picker is still on screen still
 throws `PickingInProgressException`.
+
+## Workaround
+
+Do not call `getDocumentAsync()` in the same tick as closing a modal. Wait for the modal to
+report that it is gone, which is what the switch turns on:
+
+```tsx
+const pendingPick = useRef<string | null>(null);
+
+const closeSheetAndPick = () => {
+  setSheetVisible(false);
+  pendingPick.current = 'pick 1';
+};
+
+<Modal
+  visible={sheetVisible}
+  presentationStyle="pageSheet"
+  onDismiss={() => {
+    if (pendingPick.current) {
+      pendingPick.current = null;
+      pick('pick 1');
+    }
+  }}
+/>
+```
+
+`onDismiss` is iOS-only. Once a pick has been orphaned on the published package, the app must be
+relaunched to recover.
