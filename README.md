@@ -7,3 +7,10 @@ Versions: Expo SDK 58 (`expo` 58.0.26), `expo-document-picker` 58.0.5, `expo-mod
 `react-native` 0.88.1, `@react-navigation/native-stack` 7.21.1, `react-native-screens` 4.30.1,
 New Architecture.
 Recorded on the iPhone 17 Pro simulator, iOS 26.5, Xcode 27.2, 11/22/26.
+
+## Run
+
+```sh
+npm install
+npx expo run:ios   # development build, iOS simulator or device
+```
