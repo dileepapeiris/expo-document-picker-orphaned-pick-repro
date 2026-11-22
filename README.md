@@ -77,3 +77,19 @@ Screen recordings: `media/bug-same-tick.mp4`, `media/fixed-same-tick.mp4`,
 `media/workaround-on-dismiss.mp4`.
 Per-step screenshots: `media/<run>-<step>.png` for each run above.
 Simulator and toolchain details: `media/simulator-ios-version.txt`.
+
+## Cause
+
+In `DocumentPickerModule.swift`, `getDocumentAsync` throws `PickingInProgressException` whenever
+`pickingContext` is set, sets it before presenting the picker, and clears it only from the picker
+delegate callbacks (`didPickDocumentsAt`, `didCancelPicking`). Those callbacks fire for a pick, a
+cancel and an interactive swipe down. They do not fire when the picker is dismissed together with
+the view controller that presented it, which is what happens in both scenarios above. The promise
+never settles and `pickingContext` stays set until the app is relaunched.
+
+## Fix
+
+The fix keeps a weak reference to the presented picker in `PickingContext`. When a new call finds a
+context whose picker is no longer presented, it resolves that promise with `canceled: true` and
+starts the new pick instead of throwing. A call made while a picker is still on screen still
+throws `PickingInProgressException`.
