@@ -1,5 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 import * as DocumentPicker from 'expo-document-picker';
 import { createContext, useContext, useRef, useState } from 'react';
 import { Button, Modal, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
@@ -8,9 +8,11 @@ type Picker = { log: string[]; pick: (label: string) => Promise<void> };
 
 const PickerContext = createContext<Picker>({ log: [], pick: async () => {} });
 
-const Stack = createNativeStackNavigator();
+type RootStack = { Home: undefined; ModalScreen: undefined };
 
-function HomeScreen() {
+const Stack = createNativeStackNavigator<RootStack>();
+
+function HomeScreen({ navigation }: NativeStackScreenProps<RootStack, 'Home'>) {
   const { log, pick } = useContext(PickerContext);
   const [sheetVisible, setSheetVisible] = useState(false);
   const [waitForDismiss, setWaitForDismiss] = useState(false);
@@ -44,6 +46,7 @@ function HomeScreen() {
       </View>
       <Button title="1. Open sheet" onPress={() => setSheetVisible(true)} />
       <Button title="3. Pick again" onPress={() => pick('pick 2')} />
+      <Button title="4. Open modal screen" onPress={() => navigation.navigate('ModalScreen')} />
       <ScrollView style={styles.log}>
         {log.map((line, index) => (
           <Text key={index} style={styles.line}>
@@ -61,6 +64,23 @@ function HomeScreen() {
           <Button title="2. Attach a file" onPress={closeSheetAndPick} />
         </View>
       </Modal>
+    </View>
+  );
+}
+
+function ModalScreen({ navigation }: NativeStackScreenProps<RootStack, 'ModalScreen'>) {
+  const { pick } = useContext(PickerContext);
+
+  // Presents the picker on top of this screen, then pops the screen from under it.
+  const pickThenGoBack = () => {
+    pick('pick 3');
+    setTimeout(() => navigation.goBack(), 2000);
+  };
+
+  return (
+    <View style={styles.screen}>
+      <Text style={styles.heading}>Modal screen</Text>
+      <Button title="5. Pick here, then go back" onPress={pickThenGoBack} />
     </View>
   );
 }
@@ -85,6 +105,7 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="ModalScreen" component={ModalScreen} options={{ presentation: 'modal' }} />
         </Stack.Navigator>
       </NavigationContainer>
     </PickerContext.Provider>
