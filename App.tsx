@@ -22,6 +22,7 @@ export default function App() {
     <View style={styles.screen}>
       <Text style={styles.heading}>expo-document-picker orphaned pick</Text>
       <Button title="1. Open sheet" onPress={() => setSheetVisible(true)} />
+      <Button title="3. Pick again" onPress={() => pick('pick 2')} />
     </View>
   );
 }
