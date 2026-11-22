@@ -57,3 +57,16 @@ Raw tap logs: `media/bug-same-tick.txt`, `media/workaround-on-dismiss.txt`.
 Screen recordings: `media/bug-same-tick.mp4` and `media/workaround-on-dismiss.mp4`.
 Per-step screenshots: `media/bug-same-tick-*.png` and `media/workaround-on-dismiss-*.png`.
 Simulator and toolchain details: `media/simulator-ios-version.txt`.
+
+## Likely cause
+
+In `DocumentPickerModule.swift`, `getDocumentAsync` throws `PickingInProgressException` whenever
+`pickingContext` is non-nil, sets `pickingContext` before presenting the picker, and only clears
+it from the picker delegate callbacks (`didPickDocumentsAt`, `didCancelPicking`). The picker is
+presented on `appContext.utilities.currentViewController()`. When that view controller is the
+sheet that is being dismissed, UIKit never completes the presentation, so no delegate callback
+ever fires, the promise never settles, and `pickingContext` stays set until the app is relaunched.
+
+The reporter proposes keeping a weak reference to the presented picker in the context and, on the
+next call, treating a context whose picker is no longer presented as stale: resolve the old
+promise as canceled and continue instead of throwing.
