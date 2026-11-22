@@ -19,17 +19,14 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+    <View style={styles.screen}>
+      <Text style={styles.heading}>expo-document-picker orphaned pick</Text>
+      <Button title="1. Open sheet" onPress={() => setSheetVisible(true)} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  screen: { flex: 1, paddingTop: 80, paddingHorizontal: 16, gap: 12, backgroundColor: '#fff' },
+  heading: { fontSize: 18, fontWeight: '600', textAlign: 'center' },
 });
