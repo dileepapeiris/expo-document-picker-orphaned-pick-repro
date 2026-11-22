@@ -4,6 +4,9 @@ import { Button, Modal, ScrollView, StyleSheet, Text, View } from 'react-native'
 
 export default function App() {
   const [sheetVisible, setSheetVisible] = useState(false);
+  const [log, setLog] = useState<string[]>([]);
+
+  const append = (line: string) => setLog((lines) => [...lines, line]);
 
   return (
     <View style={styles.container}>
