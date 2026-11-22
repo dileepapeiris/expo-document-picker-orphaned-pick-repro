@@ -61,3 +61,19 @@ rejecting forever.
 Raw tap logs: `media/bug-same-tick.txt`, `media/fixed-same-tick.txt`,
 `media/bug-modal-popped-under-picker.txt`, `media/fixed-modal-popped-under-picker.txt`,
 `media/workaround-on-dismiss.txt`.
+
+## Media
+
+![Scenario A final log, published on the left and fixed on the right](media/same-tick-before-after.png)
+
+![Scenario B final log, published on the left and fixed on the right](media/modal-popped-before-after.png)
+
+![Scenario A, published on the left and fixed on the right](media/same-tick-before-after.gif)
+
+![Scenario B, published on the left and fixed on the right](media/modal-popped-before-after.gif)
+
+Screen recordings: `media/bug-same-tick.mp4`, `media/fixed-same-tick.mp4`,
+`media/bug-modal-popped-under-picker.mp4`, `media/fixed-modal-popped-under-picker.mp4`,
+`media/workaround-on-dismiss.mp4`.
+Per-step screenshots: `media/<run>-<step>.png` for each run above.
+Simulator and toolchain details: `media/simulator-ios-version.txt`.
