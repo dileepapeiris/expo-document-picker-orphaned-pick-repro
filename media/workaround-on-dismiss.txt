@@ -1,16 +1,16 @@
-08:57:05 run: workaround-on-dismiss | iPhone 17 Pro simulator, iOS 26.5 | app relaunched first (the stuck state from bug-same-tick does not survive a relaunch) | taps are device points (402x874)
-08:57:07 recording started -> workaround-on-dismiss.mp4
-08:57:09 screenshot workaround-on-dismiss-0-start.png (fresh launch)
-08:57:09 tap (352,127) switch 'Workaround: pick after onDismiss' -> on
-08:57:11 screenshot workaround-on-dismiss-1-switch-on.png
-08:57:11 tap (201,173) '1. Open sheet'
-08:57:14 screenshot workaround-on-dismiss-2-open-sheet.png
-08:57:14 tap (201,195) '2. Attach a file' (closes sheet, pick deferred to onDismiss)
-08:57:20 screenshot workaround-on-dismiss-3-attach-a-file.png (5 s after the tap)
-08:57:36 tap (309,110) picker close (X)
-08:57:39 screenshot workaround-on-dismiss-4-picker-closed.png
-08:57:39 tap (201,222) '3. Pick again'
-08:57:44 screenshot workaround-on-dismiss-5-pick-again.png (4 s after the tap)
-08:57:44 tap (309,110) picker close (X)
-08:57:47 screenshot workaround-on-dismiss-6-second-picker-closed.png
-08:57:51 recording stopped
+10:00:31 run: workaround-on-dismiss | iPhone 17 Pro simulator, iOS 26.5 | expo-document-picker 58.0.5 as published | workaround switch on | fresh launch | taps are device points (402x874)
+10:00:34 recording started -> workaround-on-dismiss.mp4
+10:00:35 screenshot workaround-on-dismiss-0-start.png
+10:00:36 tap (352,127) switch 'Workaround: pick after onDismiss' -> on
+10:00:38 screenshot workaround-on-dismiss-1-switch-on.png
+10:00:38 tap (201,173) '1. Open sheet' (attempt 1)
+10:00:40 screenshot workaround-on-dismiss-2-open-sheet.png
+10:00:41 tap (201,195) '2. Attach a file' (setSheetVisible(false) + getDocumentAsync)
+10:00:46 screenshot workaround-on-dismiss-3-attach-a-file.png (5 s after the tap)
+10:00:46 tap (309,110) picker close (X), if a picker is showing
+10:00:49 screenshot workaround-on-dismiss-4-after-close.png
+10:00:50 tap (201,222) '3. Pick again'
+10:00:54 screenshot workaround-on-dismiss-5-pick-again.png (4 s after the tap)
+10:00:54 tap (309,110) picker close (X), if a picker is showing
+10:00:57 screenshot workaround-on-dismiss-6-final.png
+10:01:01 recording stopped
