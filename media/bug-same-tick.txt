@@ -1,12 +1,14 @@
-08:55:58 run: bug-same-tick | iPhone 17 Pro simulator, iOS 26.5 | taps sent as mouse clicks on the DeviceHub window, coordinates are device points (402x874)
-08:56:00 recording started -> bug-same-tick.mp4
-08:56:01 screenshot bug-same-tick-0-start.png (fresh launch, nothing tapped)
-08:56:02 tap (201,173) '1. Open sheet'
-08:56:04 screenshot bug-same-tick-1-open-sheet.png
-08:56:04 tap (201,195) '2. Attach a file' (closes sheet + getDocumentAsync in the same tick)
-08:56:10 screenshot bug-same-tick-2-attach-a-file.png (5 s after the tap)
-08:56:22 tap (201,222) '3. Pick again'
-08:56:25 screenshot bug-same-tick-3-pick-again.png
-08:56:26 tap (201,222) '3. Pick again' (second time)
-08:56:29 screenshot bug-same-tick-4-pick-again-second.png
-08:56:33 recording stopped
+09:59:46 run: bug-same-tick | iPhone 17 Pro simulator, iOS 26.5 | expo-document-picker 58.0.5 as published | workaround switch off | fresh launch | taps are device points (402x874)
+09:59:49 recording started -> bug-same-tick.mp4
+09:59:51 screenshot bug-same-tick-0-start.png
+09:59:51 tap (201,173) '1. Open sheet' (attempt 1)
+09:59:53 screenshot bug-same-tick-2-open-sheet.png
+09:59:54 tap (201,195) '2. Attach a file' (setSheetVisible(false) + getDocumentAsync)
+09:59:59 screenshot bug-same-tick-3-attach-a-file.png (5 s after the tap)
+09:59:59 tap (309,110) picker close (X), if a picker is showing
+10:00:02 screenshot bug-same-tick-4-after-close.png
+10:00:03 tap (201,222) '3. Pick again'
+10:00:07 screenshot bug-same-tick-5-pick-again.png (4 s after the tap)
+10:00:07 tap (309,110) picker close (X), if a picker is showing
+10:00:10 screenshot bug-same-tick-6-final.png
+10:00:14 recording stopped
