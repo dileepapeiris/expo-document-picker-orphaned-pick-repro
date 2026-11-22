@@ -1,24 +1,20 @@
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as DocumentPicker from 'expo-document-picker';
-import { useRef, useState } from 'react';
+import { createContext, useContext, useRef, useState } from 'react';
 import { Button, Modal, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
 
-export default function App() {
+type Picker = { log: string[]; pick: (label: string) => Promise<void> };
+
+const PickerContext = createContext<Picker>({ log: [], pick: async () => {} });
+
+const Stack = createNativeStackNavigator();
+
+function HomeScreen() {
+  const { log, pick } = useContext(PickerContext);
   const [sheetVisible, setSheetVisible] = useState(false);
   const [waitForDismiss, setWaitForDismiss] = useState(false);
   const pendingPick = useRef<string | null>(null);
-  const [log, setLog] = useState<string[]>([]);
-
-  const append = (line: string) => setLog((lines) => [...lines, line]);
-
-  const pick = async (label: string) => {
-    append(`${label}: calling getDocumentAsync`);
-    try {
-      const result = await DocumentPicker.getDocumentAsync();
-      append(`${label}: settled, canceled=${result.canceled}`);
-    } catch (error) {
-      append(`${label}: rejected, ${String(error)}`);
-    }
-  };
 
   // Closes the sheet and starts the pick in the same tick, as in expo/expo#53827.
   // With the workaround on, the pick is deferred until the Modal reports onDismiss.
@@ -31,17 +27,10 @@ export default function App() {
     }
   };
 
-  // Presents the picker on top of the sheet, then closes the sheet underneath it.
-  const pickThenCloseSheet = () => {
-    pick('pick 3');
-    setTimeout(() => setSheetVisible(false), 2000);
-  };
-
   const onSheetDismissed = () => {
     const label = pendingPick.current;
     pendingPick.current = null;
     if (label) {
-      append('sheet onDismiss fired');
       pick(label);
     }
   };
@@ -70,10 +59,35 @@ export default function App() {
         <View style={styles.screen}>
           <Text style={styles.heading}>Sheet</Text>
           <Button title="2. Attach a file" onPress={closeSheetAndPick} />
-          <Button title="2b. Pick here, then close the sheet" onPress={pickThenCloseSheet} />
         </View>
       </Modal>
     </View>
+  );
+}
+
+export default function App() {
+  const [log, setLog] = useState<string[]>([]);
+
+  const append = (line: string) => setLog((lines) => [...lines, line]);
+
+  const pick = async (label: string) => {
+    append(`${label}: calling getDocumentAsync`);
+    try {
+      const result = await DocumentPicker.getDocumentAsync();
+      append(`${label}: settled, canceled=${result.canceled}`);
+    } catch (error) {
+      append(`${label}: rejected, ${String(error)}`);
+    }
+  };
+
+  return (
+    <PickerContext.Provider value={{ log, pick }}>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Home" component={HomeScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </PickerContext.Provider>
   );
 }
 
