@@ -89,7 +89,7 @@ never settles and `pickingContext` stays set until the app is relaunched.
 
 ## Fix
 
-The fix keeps a weak reference to the presented picker in `PickingContext`. When a new call finds a
+https://github.com/expo/expo/pull/53989 keeps a weak reference to the presented picker in `PickingContext`. When a new call finds a
 context whose picker is no longer presented, it resolves that promise with `canceled: true` and
 starts the new pick instead of throwing. A call made while a picker is still on screen still
 throws `PickingInProgressException`.
