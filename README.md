@@ -27,3 +27,21 @@ The switch at the top swaps how the attach button behaves:
 | --- | --- |
 | off (bug) | `setSheetVisible(false)` then `getDocumentAsync()` immediately, as in the issue |
 | on (workaround) | `setSheetVisible(false)`, then `getDocumentAsync()` from the Modal's `onDismiss` |
+
+## Result
+
+Each tap was sent as a mouse click on the simulator and the log read back from screenshots.
+The app was relaunched between the two runs because the stuck state survives for the life of
+the process.
+
+| Step | Expected | Bug (switch off) | Workaround (switch on) |
+| --- | --- | --- | --- |
+| 1. Open sheet | Sheet slides up | Sheet slides up | Sheet slides up |
+| 2. Attach a file | Sheet closes, picker appears | Sheet closes, **no picker**, `pick 1` logged as calling and **never settles** | Sheet closes, `onDismiss` fires, picker appears; closing it settles `pick 1` with `canceled=true` |
+| 3. Pick again | Picker appears | **Rejected**: `Different document picking in progress. Await other document picking first` | Picker appears; closing it settles `pick 2` with `canceled=true` |
+| 3. Pick again, second time | Picker appears | **Rejected** with the same error | not needed |
+| Relaunch the app | | Clears the stuck state | |
+
+Once the first call is orphaned, no later `getDocumentAsync()` call in that process can open a
+picker. The native module still believes a pick is in progress.
+Raw tap logs: `media/bug-same-tick.txt`, `media/workaround-on-dismiss.txt`.
