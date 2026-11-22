@@ -8,6 +8,12 @@ export default function App() {
 
   const append = (line: string) => setLog((lines) => [...lines, line]);
 
+  const pick = async (label: string) => {
+    append(`${label}: calling getDocumentAsync`);
+    const result = await DocumentPicker.getDocumentAsync();
+    append(`${label}: settled, canceled=${result.canceled}`);
+  };
+
   return (
     <View style={styles.container}>
       <Text>Open up App.tsx to start working on your app!</Text>
