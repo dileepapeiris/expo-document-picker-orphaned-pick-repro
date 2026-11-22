@@ -31,6 +31,15 @@ export default function App() {
     }
   };
 
+  const onSheetDismissed = () => {
+    const label = pendingPick.current;
+    pendingPick.current = null;
+    if (label) {
+      append('sheet onDismiss fired');
+      pick(label);
+    }
+  };
+
   return (
     <View style={styles.screen}>
       <Text style={styles.heading}>expo-document-picker orphaned pick</Text>
@@ -47,7 +56,11 @@ export default function App() {
           </Text>
         ))}
       </ScrollView>
-      <Modal visible={sheetVisible} animationType="slide" presentationStyle="pageSheet">
+      <Modal
+        visible={sheetVisible}
+        animationType="slide"
+        presentationStyle="pageSheet"
+        onDismiss={onSheetDismissed}>
         <View style={styles.screen}>
           <Text style={styles.heading}>Sheet</Text>
           <Button title="2. Attach a file" onPress={closeSheetAndPick} />
