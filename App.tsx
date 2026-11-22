@@ -23,6 +23,13 @@ export default function App() {
       <Text style={styles.heading}>expo-document-picker orphaned pick</Text>
       <Button title="1. Open sheet" onPress={() => setSheetVisible(true)} />
       <Button title="3. Pick again" onPress={() => pick('pick 2')} />
+      <ScrollView style={styles.log}>
+        {log.map((line, index) => (
+          <Text key={index} style={styles.line}>
+            {line}
+          </Text>
+        ))}
+      </ScrollView>
     </View>
   );
 }
@@ -30,4 +37,6 @@ export default function App() {
 const styles = StyleSheet.create({
   screen: { flex: 1, paddingTop: 80, paddingHorizontal: 16, gap: 12, backgroundColor: '#fff' },
   heading: { fontSize: 18, fontWeight: '600', textAlign: 'center' },
+  log: { flex: 1, marginTop: 12 },
+  line: { fontSize: 13, marginBottom: 6 },
 });
