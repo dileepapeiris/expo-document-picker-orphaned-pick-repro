@@ -30,6 +30,11 @@ export default function App() {
           </Text>
         ))}
       </ScrollView>
+      <Modal visible={sheetVisible} animationType="slide" presentationStyle="pageSheet">
+        <View style={styles.screen}>
+          <Text style={styles.heading}>Sheet</Text>
+        </View>
+      </Modal>
     </View>
   );
 }
