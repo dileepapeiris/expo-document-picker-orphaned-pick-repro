@@ -18,6 +18,12 @@ export default function App() {
     }
   };
 
+  // Closes the sheet and starts the pick in the same tick, as in expo/expo#53827.
+  const closeSheetAndPick = () => {
+    setSheetVisible(false);
+    pick('pick 1');
+  };
+
   return (
     <View style={styles.screen}>
       <Text style={styles.heading}>expo-document-picker orphaned pick</Text>
@@ -33,6 +39,7 @@ export default function App() {
       <Modal visible={sheetVisible} animationType="slide" presentationStyle="pageSheet">
         <View style={styles.screen}>
           <Text style={styles.heading}>Sheet</Text>
+          <Button title="2. Attach a file" onPress={closeSheetAndPick} />
         </View>
       </Modal>
     </View>
