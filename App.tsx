@@ -29,6 +29,10 @@ export default function App() {
   return (
     <View style={styles.screen}>
       <Text style={styles.heading}>expo-document-picker orphaned pick</Text>
+      <View style={styles.row}>
+        <Text style={styles.label}>Workaround: pick after onDismiss</Text>
+        <Switch value={waitForDismiss} onValueChange={setWaitForDismiss} />
+      </View>
       <Button title="1. Open sheet" onPress={() => setSheetVisible(true)} />
       <Button title="3. Pick again" onPress={() => pick('pick 2')} />
       <ScrollView style={styles.log}>
@@ -51,6 +55,8 @@ export default function App() {
 const styles = StyleSheet.create({
   screen: { flex: 1, paddingTop: 80, paddingHorizontal: 16, gap: 12, backgroundColor: '#fff' },
   heading: { fontSize: 18, fontWeight: '600', textAlign: 'center' },
+  row: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  label: { fontSize: 15 },
   log: { flex: 1, marginTop: 12 },
   line: { fontSize: 13, marginBottom: 6 },
 });
