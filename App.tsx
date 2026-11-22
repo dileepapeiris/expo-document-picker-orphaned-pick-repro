@@ -31,6 +31,12 @@ export default function App() {
     }
   };
 
+  // Presents the picker on top of the sheet, then closes the sheet underneath it.
+  const pickThenCloseSheet = () => {
+    pick('pick 3');
+    setTimeout(() => setSheetVisible(false), 2000);
+  };
+
   const onSheetDismissed = () => {
     const label = pendingPick.current;
     pendingPick.current = null;
@@ -64,6 +70,7 @@ export default function App() {
         <View style={styles.screen}>
           <Text style={styles.heading}>Sheet</Text>
           <Button title="2. Attach a file" onPress={closeSheetAndPick} />
+          <Button title="2b. Pick here, then close the sheet" onPress={pickThenCloseSheet} />
         </View>
       </Modal>
     </View>
