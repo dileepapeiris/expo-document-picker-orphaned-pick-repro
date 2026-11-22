@@ -21,9 +21,14 @@ export default function App() {
   };
 
   // Closes the sheet and starts the pick in the same tick, as in expo/expo#53827.
+  // With the workaround on, the pick is deferred until the Modal reports onDismiss.
   const closeSheetAndPick = () => {
     setSheetVisible(false);
-    pick('pick 1');
+    if (waitForDismiss) {
+      pendingPick.current = 'pick 1';
+    } else {
+      pick('pick 1');
+    }
   };
 
   return (
