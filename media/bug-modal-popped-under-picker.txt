@@ -1,0 +1,13 @@
+09:58:33 run: bug-modal-popped-under-picker | iPhone 17 Pro simulator, iOS 26.5 | expo-document-picker 58.0.5 as published | fresh launch | taps are device points (402x874)
+09:58:36 recording started -> bug-modal-popped-under-picker.mp4
+09:58:37 screenshot bug-modal-popped-under-picker-0-start.png
+09:58:38 tap (201,272) '4. Open modal screen' (attempt 1)
+09:58:40 screenshot bug-modal-popped-under-picker-1-modal-screen.png
+09:58:41 tap (201,195) '5. Pick here, then go back' (getDocumentAsync now, navigation.goBack() after 2 s)
+09:58:42 screenshot bug-modal-popped-under-picker-2-picker-over-modal.png (1.2 s after the tap)
+09:58:46 screenshot bug-modal-popped-under-picker-3-modal-popped.png (4.7 s after the tap, modal screen popped under the picker)
+09:58:46 tap (201,222) '3. Pick again'
+09:58:50 screenshot bug-modal-popped-under-picker-4-pick-again.png
+09:58:50 tap (309,110) picker close (X), if a picker is showing
+09:58:53 screenshot bug-modal-popped-under-picker-5-final.png
+09:58:57 recording stopped
