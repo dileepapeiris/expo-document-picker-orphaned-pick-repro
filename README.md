@@ -45,3 +45,15 @@ the process.
 Once the first call is orphaned, no later `getDocumentAsync()` call in that process can open a
 picker. The native module still believes a pick is in progress.
 Raw tap logs: `media/bug-same-tick.txt`, `media/workaround-on-dismiss.txt`.
+
+## Media
+
+![After tapping Attach a file, bug and workaround side by side](media/attach-a-file-side-by-side.png)
+
+![Final log, bug and workaround side by side](media/final-log-side-by-side.png)
+
+![Whole tap sequence, bug and workaround side by side](media/bug-vs-workaround-side-by-side.gif)
+
+Screen recordings: `media/bug-same-tick.mp4` and `media/workaround-on-dismiss.mp4`.
+Per-step screenshots: `media/bug-same-tick-*.png` and `media/workaround-on-dismiss-*.png`.
+Simulator and toolchain details: `media/simulator-ios-version.txt`.
